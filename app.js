@@ -37,35 +37,54 @@ showBtnElement.addEventListener("click", function onClick(event) {
 //   },
 // ];
 const links = [];
-console.log("before links", links);
+
 if (form) {
   form.addEventListener("submit", (event) => {
     event.preventDefault(); // prevents the form from auto submitting
 
-    // Method 1: Using FormData
-    // const formData = new FormData(event.target);
-    // const title = formData.get("title");
-    // const link = formData.get("link");
-
-    // Method 2: Using DOM
-    // select the input field
-    const linkElement = document.getElementById("link");
-    const titleElement = document.getElementById("title");
-
-    // get the value from the input field
-    const titleValue = titleElement.value;
-    const linkValue = linkElement.value;
-
-    // generate a unique id
-    const uniqueId = new Date().getDate();
-
-    // push the data into the array
-    links.push({ id: uniqueId.toString(), title: titleValue, link: linkValue });
-
-    console.log("after links", links);
-
-    //  clear the form
-    titleElement.value = "";
-    linkElement.value = "";
+    // save the data
+    saveData(links);
   });
 }
+
+/**
+ * 3. event listener on the enter button
+ */
+if (form) {
+  form.addEventListener("keyup", (event) => {
+    event.preventDefault();
+
+    if (event.key === "Enter") {
+      // save the data
+      saveData(links);
+    }
+  });
+}
+
+function saveData(linksArr = []) {
+  // select the input field
+  const linkElement = document.getElementById("link");
+  const titleElement = document.getElementById("title");
+
+  // get the value from the input field
+  const titleValue = titleElement.value;
+  const linkValue = linkElement.value;
+
+  // generate a unique id
+  const uniqueId = new Date().getTime();
+
+  // push the data into the array
+  linksArr.push({
+    id: uniqueId.toString(),
+    title: titleValue,
+    link: linkValue,
+  });
+
+  console.log("after links", linksArr);
+
+  //  clear the form
+  titleElement.value = "";
+  linkElement.value = "";
+}
+
+// !FIXME: There is bug when we press enter on the submit button. The form is getting submitted twice.
