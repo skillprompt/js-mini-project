@@ -44,6 +44,7 @@ if (form) {
 
     // save the data
     saveData(links);
+    renderData(links);
   });
 }
 
@@ -57,6 +58,7 @@ if (form) {
     if (event.key === "Enter") {
       // save the data
       saveData(links);
+      renderData(links);
     }
   });
 }
@@ -88,3 +90,42 @@ function saveData(linksArr = []) {
 }
 
 // !FIXME: There is bug when we press enter on the submit button. The form is getting submitted twice.
+
+/**
+ * 4. Render the data
+ */
+
+function renderData(linksArr = []) {
+  const dataContainer = document.getElementById("data");
+
+  if (linksArr.length) {
+    dataContainer.style.display = "block";
+  } else {
+    dataContainer.style.display = "none";
+  }
+
+  // generate the markup
+  let markup = "";
+
+  linksArr
+    .filter((link) => {
+      if (link.title.length) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+    .forEach((item) => {
+      markup += `
+      <li>
+        <h3>${item.title}</h3>
+        <span>
+          Link :
+          <a href="${item.link}" target="_blank">${item.link}</a>
+        </span>
+      </li>
+    `;
+    });
+
+  dataContainer.innerHTML = markup;
+}
