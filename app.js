@@ -124,12 +124,22 @@ function renderData(linksArr = []) {
           <a href="${item.link}" target="_blank">${item.link}</a>
         </span>
         <button onclick="editData(${item.id})">edit</button> 
-        <button onclick="deleteData(${item.id})">delete</button>
+        <button id="delete-btn" data-id="${item.id}" data-link="${item.link}" data-title="${item.title}" >delete</button>
       </li>
     `;
     });
-
   dataContainer.innerHTML = markup;
+
+  const deleteBtnElements = document.querySelectorAll("#delete-btn");
+
+  for (let i = 0; i < deleteBtnElements.length; i++) {
+    const deleteBtnElement = deleteBtnElements[i];
+
+    deleteBtnElement.addEventListener("click", (event) => {
+      const dataToDeleteId = event.target.dataset.id;
+      deleteData(dataToDeleteId);
+    });
+  }
 }
 
 /**
