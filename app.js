@@ -41,10 +41,16 @@ const links = [];
 if (form) {
   form.addEventListener("submit", (event) => {
     event.preventDefault(); // prevents the form from auto submitting
+    // updating the existing data
 
-    // save the data
-    saveData(links);
-    renderData(links);
+    const dataToEditId = form.dataset.id;
+    if (dataToEditId) {
+      updateData(links, dataToEditId);
+      renderData(links);
+    } else {
+      saveData(links);
+      renderData(links);
+    }
   });
 }
 
@@ -87,6 +93,10 @@ function saveData(linksArr = []) {
   //  clear the form
   titleElement.value = "";
   linkElement.value = "";
+}
+
+function updateData(linksArr = [], dataToEditId) {
+  console.log("updating data", dataToEditId, linksArr);
 }
 
 // !FIXME: There is bug when we press enter on the submit button. The form is getting submitted twice.
@@ -150,7 +160,21 @@ function renderData(linksArr = []) {
  * functions required for edit and delete
  */
 function editData(dataToEditId) {
-  console.log("editing data id", dataToEditId);
+  const item = links.find((link) => {
+    if (link.id === dataToEditId.toString()) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  const titleElement = document.getElementById("title");
+  const linkElement = document.getElementById("link");
+
+  titleElement.value = item.title;
+  linkElement.value = item.link;
+
+  form.setAttribute("data-id", item.id.toString());
 }
 
 function deleteData(dataToDeleteId) {
