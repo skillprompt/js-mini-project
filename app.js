@@ -123,9 +123,41 @@ function renderData(linksArr = []) {
           Link :
           <a href="${item.link}" target="_blank">${item.link}</a>
         </span>
+        <button onclick="editData(${item.id})">edit</button> 
+        <button onclick="deleteData(${item.id})">delete</button>
       </li>
     `;
     });
 
   dataContainer.innerHTML = markup;
+}
+
+/**
+ * Edit and delete buttons
+ * These buttons are added in renderData function.
+ */
+/**
+ * functions required for edit and delete
+ */
+function editData(dataToEditId) {
+  console.log("editing data id", dataToEditId);
+}
+
+function deleteData(dataToDeleteId) {
+  const itemIndex = links.findIndex((link) => {
+    if (link.id === dataToDeleteId.toString()) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  if (itemIndex > -1) {
+    //  item exists
+    // perform the delete operation
+    links.splice(itemIndex, 1);
+    renderData(links);
+  } else {
+    alert("item does not exist");
+  }
 }
