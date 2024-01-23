@@ -1,3 +1,10 @@
+import { sayHello } from "./app/test.js";
+
+import sayByeFromTestJsFile from "./app/test.js";
+
+sayHello();
+sayByeFromTestJsFile();
+
 console.log("working...");
 
 const showBtnElement = document.getElementById("show_form_btn");
