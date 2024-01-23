@@ -1,9 +1,9 @@
-import { sayHello } from "./app/test.js";
+// import { sayHello } from "./app/test.js";
 
-import sayByeFromTestJsFile from "./app/test.js";
+// import sayByeFromTestJsFile from "./app/test.js";
 
-sayHello();
-sayByeFromTestJsFile();
+// sayHello();
+// sayByeFromTestJsFile();
 
 console.log("working...");
 
@@ -50,9 +50,22 @@ if (form) {
     event.preventDefault(); // prevents the form from auto submitting
     // updating the existing data
 
+    const linkElement = document.getElementById("link");
+    const titleElement = document.getElementById("title");
+
+    // get the value from the input field
+    const titleValue = titleElement.value;
+    const linkValue = linkElement.value;
+
     const dataToEditId = form.dataset.id;
     if (dataToEditId) {
-      updateData(links, dataToEditId);
+      updateData(links, dataToEditId, {
+        title: titleValue,
+        link: linkValue,
+      });
+      // clear the form
+      titleElement.value = "";
+      linkElement.value = "";
       renderData(links);
     } else {
       saveData(links);
@@ -102,8 +115,23 @@ function saveData(linksArr = []) {
   linkElement.value = "";
 }
 
-function updateData(linksArr = [], dataToEditId) {
+function updateData(linksArr = [], dataToEditId, valuesToUpdate) {
   console.log("updating data", dataToEditId, linksArr);
+
+  const indexToEdit = linksArr.findIndex((link) => {
+    if (link.id === dataToEditId.toString()) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+  if (indexToEdit > -1) {
+    linksArr.splice(indexToEdit, 1, {
+      id: dataToEditId.toString(),
+      title: valuesToUpdate.title,
+      link: valuesToUpdate.link,
+    });
+  }
 }
 
 // !FIXME: There is bug when we press enter on the submit button. The form is getting submitted twice.
