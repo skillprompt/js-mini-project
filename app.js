@@ -49,6 +49,7 @@ if (form) {
   form.addEventListener("submit", (event) => {
     event.preventDefault(); // prevents the form from auto submitting
     // updating the existing data
+    console.log("form submitted", event.target);
 
     const linkElement = document.getElementById("link");
     const titleElement = document.getElementById("title");
@@ -56,6 +57,18 @@ if (form) {
     // get the value from the input field
     const titleValue = titleElement.value;
     const linkValue = linkElement.value;
+
+    /**
+     * add validation
+     */
+    if (titleValue.length === 0) {
+      alert("Please enter a title");
+      return;
+    }
+    if (linkValue.length === 0) {
+      alert("Please enter a link");
+      return;
+    }
 
     const dataToEditId = form.dataset.id;
     if (dataToEditId) {
@@ -81,7 +94,31 @@ if (form) {
   form.addEventListener("keyup", (event) => {
     event.preventDefault();
 
+    const isSubmitButton = event.target.type === "submit";
+    if (isSubmitButton) {
+      return;
+    }
+
     if (event.key === "Enter") {
+      const linkElement = document.getElementById("link");
+      const titleElement = document.getElementById("title");
+
+      // get the value from the input field
+      const titleValue = titleElement.value;
+      const linkValue = linkElement.value;
+
+      /**
+       * add validation
+       */
+      if (titleValue.length === 0) {
+        alert("Please enter a title");
+        return;
+      }
+      if (linkValue.length === 0) {
+        alert("Please enter a link");
+        return;
+      }
+
       // save the data
       saveData(links);
       renderData(links);
