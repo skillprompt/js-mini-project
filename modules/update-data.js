@@ -1,6 +1,4 @@
 export function updateData(linksArr = [], dataToEditId, valuesToUpdate) {
-  console.log("updating data", dataToEditId, linksArr);
-
   const indexToEdit = linksArr.findIndex((link) => {
     if (link.id === dataToEditId.toString()) {
       return true;
@@ -14,5 +12,7 @@ export function updateData(linksArr = [], dataToEditId, valuesToUpdate) {
       title: valuesToUpdate.title,
       link: valuesToUpdate.link,
     });
+
+    localStorage.setItem("links", JSON.stringify(linksArr));
   }
 }

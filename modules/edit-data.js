@@ -1,4 +1,5 @@
 import { links } from "../data/links.js";
+import { hideShowButton } from "./form-handler.js";
 
 /**
  * Edit and delete buttons
@@ -8,6 +9,8 @@ import { links } from "../data/links.js";
  * functions required for edit and delete
  */
 export function editData(dataToEditId) {
+  hideShowButton();
+
   const item = links.find((link) => {
     if (link.id === dataToEditId.toString()) {
       return true;

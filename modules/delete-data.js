@@ -14,6 +14,9 @@ export function deleteData(dataToDeleteId) {
     //  item exists
     // perform the delete operation
     links.splice(itemIndex, 1);
+
+    localStorage.setItem("links", JSON.stringify(links));
+
     renderData(links);
   } else {
     alert("item does not exist");

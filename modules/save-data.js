@@ -17,7 +17,7 @@ export function saveData(linksArr = []) {
     link: linkValue,
   });
 
-  console.log("after links", linksArr);
+  localStorage.setItem("links", JSON.stringify(linksArr));
 
   //  clear the form
   titleElement.value = "";

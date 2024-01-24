@@ -8,21 +8,24 @@ const fieldSetElement = document.getElementById("form_fieldset");
 
 const form = document.getElementById("form");
 
+export function hideShowButton() {
+  const fieldSetDisplayStatus = fieldSetElement.style.display;
+
+  if (fieldSetDisplayStatus === "block") {
+    fieldSetElement.style.display = "none";
+    // show the button name as 'Show Form'
+    showBtnElement.innerText = "Show Form";
+  } else {
+    fieldSetElement.style.display = "block";
+    // show the button name as "Hide Form"
+    showBtnElement.innerText = "Hide Form";
+  }
+}
+
 // add event listener
 export function addEventListenerToShowHideButton() {
   showBtnElement.addEventListener("click", function onClick(event) {
-    // form hide/show
-    const fieldSetDisplayStatus = fieldSetElement.style.display;
-
-    if (fieldSetDisplayStatus === "block") {
-      fieldSetElement.style.display = "none";
-      // show the button name as 'Show Form'
-      showBtnElement.innerText = "Show Form";
-    } else {
-      fieldSetElement.style.display = "block";
-      // show the button name as "Hide Form"
-      showBtnElement.innerText = "Hide Form";
-    }
+    hideShowButton();
   });
 }
 
