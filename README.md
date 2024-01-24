@@ -8,3 +8,9 @@
 8. When the mouse is over the item on the list, change the background color to green.
 9. Change the background color of the items container randomly on the scroll.
 10. Replace the array with localstorage.
+
+# BUGS
+
+1. "Edit" button is working like "hide/show" button. This should not happen.
+
+2. When edit is pressed, the form is only updating.
